@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>二维码生成器</title>
+
+  </head>
+  <body id="app">
+    <input id="text" type="text" value="http://www.runoob.com" style="width:80%" /><br />
+    <button  type="button" name="button" @click="qrChange">改变二维码</button>
+    <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+  </body>
+</html>
+<script src="http://static.runoob.com/assets/qrcode/qrcode.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+<script type="text/javascript">
+
+// qrcode.clear(); // 清除代码
+// qrcode.makeCode("http://www.w3cschool.cc"); // 生成另外一个二维码
+var qr=document.getElementById("qrcode")
+var txt=document.getElementById("text").value
+var vm=new Vue({
+    data() {
+        return {
+          url:document.getElementById("text").value,
+        }
+    },
+    el: '#app',
+    components: {},
+    methods: {
+      getData(){//获取参数
+        let url=this.url
+        console.log(url)
+        new QRCode(document.getElementById("qrcode"), {
+              text: url,
+              width: 128,
+              height: 128,
+              colorDark : "#000000",
+              colorLight : "#ffffff",
+              correctLevel : QRCode.CorrectLevel.H
+        });
+
+      },
+      qrChange(){
+        console.log('url')
+         this.url=document.getElementById("text").value
+         this.getData()
+      }
+    },
+    created() {
+      this.getData()
+    },
+})
+</script>
